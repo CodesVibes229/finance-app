@@ -267,4 +267,4 @@ Ce projet est une application personnelle. Pour toute question ou suggestion, n'
 ---
 
 **Version** : 1.0.0  
-**Dernière mise à jour** : 2025
+**Dernière mise à jour** : 2026
