@@ -1,4 +1,3 @@
-import hashlib
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,15 +50,12 @@ def get_db():
         db.close()
 
 
-def get_password_hash(password: str) -> str:
-    # Pré-hash SHA-256 pour éviter la limite bcrypt (72 bytes)
-    sha = hashlib.sha256(password.encode("utf-8")).hexdigest()
-    return pwd_context.hash(sha)
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    sha = hashlib.sha256(plain_password.encode("utf-8")).hexdigest()
-    return pwd_context.verify(sha, hashed_password)
 
+def get_password_hash(password):
+    return pwd_context.hash(password)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
